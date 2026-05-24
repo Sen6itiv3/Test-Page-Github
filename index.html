@@ -1,1 +1,275 @@
+<!-- =========================
+ADD THIS BELOW THE FIRST INPUT
+(UNDER THE FORMAT HELPER)
+========================= -->
 
+<div id="liveClock" class="live-clock">
+🕒 Local Time: --:--:--
+</div>
+
+
+<!-- =========================
+ADD THIS CSS INSIDE <style>
+========================= -->
+
+.live-clock{
+
+  margin-top:12px;
+
+  background:
+  rgba(37,99,235,0.10);
+
+  border:
+  1px solid rgba(37,99,235,0.25);
+
+  border-radius:14px;
+
+  padding:12px;
+
+  font-size:13px;
+
+  color:#bfdbfe;
+
+  text-align:center;
+
+  font-weight:600;
+
+  letter-spacing:0.5px;
+}
+
+
+/* =========================
+REPLACE THIS:
+Attack Calculator
+
+WITH:
+========================= */
+
+1. Incoming Attack Calculator
+
+
+/* =========================
+REPLACE THIS:
+Defense Call Maker
+
+WITH:
+========================= */
+
+2. Defense Call Maker
+
+
+/* =========================
+REPLACE PLACEHOLDER:
+Example: 2h 30 min
+
+WITH:
+========================= */
+
+Example: HH:MM:SS
+
+
+/* =========================
+REPLACE HELPER TEXT:
+Format: 2h 30 min, 1h, 45m, 3h 15m
+
+WITH:
+========================= */
+
+Format: HH:MM:SS
+
+
+/* =========================
+REPLACE PLACEHOLDER:
+Server landing time 16:42
+
+WITH:
+========================= */
+
+Local Time HH:MM:SS
+
+
+/* =========================
+REPLACE ENTIRE
+goDefensePage()
+========================= */
+
+function goDefensePage(){
+
+if(!generatedTimestamp){
+
+alert(
+"Please fill in page 1: Incoming Attack Calculator and Generate a Discord Timer"
+);
+
+return;
+
+}
+
+showPage("page2");
+
+warningBox.classList.add("hidden");
+
+}
+
+
+/* =========================
+REPLACE ENTIRE
+generateTimer()
+========================= */
+
+function generateTimer(){
+
+let totalSeconds = 0;
+
+if(durationInput.value.trim()){
+
+const valid =
+/^\d{2}:\d{2}:\d{2}$/
+.test(durationInput.value.trim());
+
+if(!valid){
+
+output.innerText =
+"❌ Invalid format. Use HH:MM:SS";
+
+return;
+
+}
+
+const parts =
+durationInput.value.split(":");
+
+const hours =
+parseInt(parts[0]);
+
+const minutes =
+parseInt(parts[1]);
+
+const seconds =
+parseInt(parts[2]);
+
+totalSeconds =
+(hours * 3600) +
+(minutes * 60) +
+seconds;
+
+startDurationText =
+durationInput.value;
+
+}
+
+else if(serverInput.value.trim()){
+
+const valid =
+/^\d{2}:\d{2}:\d{2}$/
+.test(serverInput.value.trim());
+
+if(!valid){
+
+output.innerText =
+"❌ Invalid local time. Use HH:MM:SS";
+
+return;
+
+}
+
+const now = new Date();
+
+const parts =
+serverInput.value.split(":");
+
+const target =
+new Date();
+
+target.setHours(parseInt(parts[0]));
+target.setMinutes(parseInt(parts[1]));
+target.setSeconds(parseInt(parts[2]));
+
+if(target < now){
+target.setDate(target.getDate()+1);
+}
+
+totalSeconds =
+Math.floor((target-now)/1000);
+
+const h =
+Math.floor(totalSeconds/3600);
+
+const m =
+Math.floor((totalSeconds%3600)/60);
+
+const s =
+totalSeconds%60;
+
+startDurationText =
+`${h}h ${m}m ${s}s`;
+
+}
+
+const future =
+Date.now() +
+(totalSeconds * 1000);
+
+const unix =
+Math.floor(future/1000);
+
+generatedTimestamp =
+`<t:${unix}:F>`;
+
+generatedDiscordText =
+`⚔️ Attack Incoming
+
+⌛ Attack spotted: ${startDurationText} ago
+📅 Lands: <t:${unix}:F>
+⏳ Countdown: <t:${unix}:R>`;
+
+output.innerText =
+generatedDiscordText;
+
+arrival.value =
+`<t:${unix}:F>`;
+
+document
+.getElementById("gotoDefenseBtn")
+.style.opacity = "1";
+
+document
+.getElementById("gotoDefenseBtn")
+.style.pointerEvents = "auto";
+
+}
+
+
+/* =========================
+ADD THIS JAVASCRIPT
+AT BOTTOM OF SCRIPT
+========================= */
+
+function updateLiveClock(){
+
+const now =
+new Date();
+
+const time =
+now.toLocaleTimeString(
+[],
+{
+hour:'2-digit',
+minute:'2-digit',
+second:'2-digit'
+}
+);
+
+document.getElementById(
+"liveClock"
+).innerHTML =
+`🕒 Local Time: ${time}`;
+
+}
+
+setInterval(
+updateLiveClock,
+1000
+);
+
+updateLiveClock();
