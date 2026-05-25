@@ -136,7 +136,10 @@ body{
   background:#0f172a;
 
   border:
-  1px solid rgba(255,255,255,0.06);
+  1px solid rgba(255,255,255,0.18);
+
+  box-shadow:
+  0 0 0 1px rgba(255,255,255,0.04);
 
   border-radius:16px;
 
@@ -189,24 +192,30 @@ body{
   margin-top:12px;
 
   background:
-  rgba(37,99,235,0.10);
+  rgba(37,99,235,0.08);
 
   border:
-  1px solid rgba(37,99,235,0.25);
+  1px solid rgba(37,99,235,0.18);
 
   border-radius:14px;
 
-  padding:12px;
+  padding:10px 12px;
 
-  font-size:13px;
+  font-size:12px;
 
-  color:#bfdbfe;
+  color:#93c5fd;
 
   text-align:center;
 
-  font-weight:600;
+  font-weight:500;
 
-  letter-spacing:0.5px;
+  letter-spacing:0.3px;
+
+  opacity:0.8;
+
+  cursor:default;
+
+  user-select:none;
 }
 
 button{
@@ -406,7 +415,7 @@ onclick="goDefensePage()">
 </div>
 
 <div class="section-title">
-🕒 Set Time
+🕒 Set the time the attack will land:
 </div>
 
 <div class="input-wrapper">
@@ -422,16 +431,13 @@ class="clear-input"
 onclick="clearField('durationInput')">
 
 ✕
+
 </div>
 
 </div>
 
 <div class="helper">
 Format: HH:MM:SS
-</div>
-
-<div id="liveClock" class="live-clock">
-🕒 Local Time: --:--:--
 </div>
 
 <div class="or">Or</div>
@@ -441,7 +447,7 @@ Format: HH:MM:SS
 <input
 id="serverInput"
 class="input-box"
-placeholder="Local Time HH:MM:SS"
+placeholder="Your Local Time HH:MM:SS"
 />
 
 <div
@@ -449,8 +455,13 @@ class="clear-input"
 onclick="clearField('serverInput')">
 
 ✕
+
 </div>
 
+</div>
+
+<div id="liveClock" class="live-clock">
+🕒 Your Local Time: --:--:--
 </div>
 
 <div class="quick-title">
@@ -825,7 +836,7 @@ document.createElement("div");
 
 icon.className = "valid-indicator";
 
-icon.innerText = "➜";
+icon.innerText = "✔";
 
 field.parentNode.appendChild(icon);
 
@@ -1005,8 +1016,17 @@ target.setDate(target.getDate()+1);
 totalSeconds =
 Math.floor((target-now)/1000);
 
+const h =
+Math.floor(totalSeconds/3600);
+
+const m =
+Math.floor((totalSeconds%3600)/60);
+
+const s =
+Math.floor(totalSeconds%60);
+
 startDurationText =
-durationInput.value;
+`${h}h ${m}m ${s}s`;
 
 }
 
@@ -1033,6 +1053,10 @@ generatedDiscordText;
 arrival.value =
 `<t:${unix}:F>`;
 
+arrival.classList.add("valid");
+
+addIndicator(arrival);
+
 document
 .getElementById("gotoDefenseBtn")
 .style.opacity = "1";
@@ -1040,6 +1064,10 @@ document
 document
 .getElementById("gotoDefenseBtn")
 .style.pointerEvents = "auto";
+
+showPage("page2");
+
+checkDefenseFields();
 
 }
 
@@ -1180,7 +1208,7 @@ second:'2-digit'
 document.getElementById(
 "liveClock"
 ).innerHTML =
-`🕒 Local Time: ${time}`;
+`🕒 Your Local Time: ${time}`;
 
 }
 
