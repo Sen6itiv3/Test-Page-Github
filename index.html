@@ -1,16 +1,188 @@
-<!-- =========================
-ADD THIS BELOW THE FIRST INPUT
-(UNDER THE FORMAT HELPER)
-========================= -->
+<!DOCTYPE html>
+<html lang="en">
 
-<div id="liveClock" class="live-clock">
-🕒 Local Time: --:--:--
-</div>
+<head>
 
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- =========================
-ADD THIS CSS INSIDE <style>
-========================= -->
+<title>Incoming Attack Calculator</title>
+
+<link rel="icon" type="image/svg+xml"
+href='data:image/svg+xml,
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+<text y=".9em" font-size="90">⚔️</text>
+</svg>'>
+
+<style>
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+
+  background:
+  radial-gradient(circle at top,
+  #172554 0%,
+  #0b1120 45%,
+  #050816 100%);
+
+  font-family:Inter,Arial,sans-serif;
+  color:white;
+}
+
+.wrapper{
+  display:flex;
+  justify-content:center;
+  padding:20px;
+}
+
+.container{
+
+  width:100%;
+  max-width:480px;
+
+  background:rgba(15,23,42,0.84);
+
+  border:1px solid rgba(255,255,255,0.06);
+
+  border-radius:26px;
+
+  padding:22px;
+
+  backdrop-filter:blur(14px);
+
+  box-shadow:
+  0 10px 40px rgba(0,0,0,0.35),
+  inset 0 1px 0 rgba(255,255,255,0.04);
+}
+
+.nav{
+  display:flex;
+  gap:10px;
+  margin-bottom:20px;
+}
+
+.nav button{
+  flex:1;
+  background:#111827;
+}
+
+.nav-active{
+  background:
+  linear-gradient(
+  135deg,
+  #2563eb,
+  #1d4ed8)!important;
+}
+
+.title{
+  text-align:center;
+  font-size:22px;
+  font-weight:700;
+  margin-bottom:24px;
+}
+
+.section-title{
+  font-size:13px;
+  opacity:0.75;
+  margin-bottom:8px;
+
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+.helper{
+  margin-top:7px;
+  font-size:11px;
+  opacity:0.5;
+  font-style:italic;
+}
+
+.or{
+  text-align:center;
+  margin:18px 0;
+  opacity:0.55;
+  font-size:13px;
+}
+
+.quick-title{
+  margin-top:20px;
+  margin-bottom:12px;
+  font-size:13px;
+  opacity:0.75;
+}
+
+.label{
+  font-size:11px;
+  opacity:0.55;
+  margin-bottom:7px;
+  margin-top:14px;
+  font-style:italic;
+}
+
+.input-wrapper{
+  position:relative;
+}
+
+.input-box{
+
+  width:100%;
+
+  background:#0f172a;
+
+  border:
+  1px solid rgba(255,255,255,0.06);
+
+  border-radius:16px;
+
+  padding:15px;
+
+  color:white;
+
+  font-size:14px;
+
+  outline:none;
+}
+
+.input-box::placeholder{
+  color:rgba(255,255,255,0.45);
+  font-style:italic;
+  font-size:13px;
+}
+
+.clear-input{
+
+  position:absolute;
+
+  right:14px;
+  top:50%;
+
+  transform:translateY(-50%);
+
+  opacity:0.45;
+
+  cursor:pointer;
+
+  font-size:14px;
+}
+
+.valid{
+  border:1px solid #22c55e!important;
+}
+
+.valid-indicator{
+  position:absolute;
+  right:40px;
+  top:50%;
+  transform:translateY(-50%);
+  color:#22c55e;
+  font-size:13px;
+}
 
 .live-clock{
 
@@ -37,85 +209,740 @@ ADD THIS CSS INSIDE <style>
   letter-spacing:0.5px;
 }
 
+button{
 
-/* =========================
-REPLACE THIS:
-Attack Calculator
+  border:none;
 
-WITH:
-========================= */
+  border-radius:14px;
+
+  padding:13px 10px;
+
+  color:white;
+
+  font-size:12px;
+  font-weight:600;
+
+  cursor:pointer;
+
+  transition:0.15s;
+}
+
+button:active{
+  transform:scale(0.97);
+}
+
+.quick-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+
+.hour-btn{
+  background:
+  linear-gradient(
+  135deg,
+  #2563eb,
+  #1d4ed8);
+}
+
+.min-btn{
+  background:
+  linear-gradient(
+  135deg,
+  #9333ea,
+  #7e22ce);
+}
+
+.generate{
+
+  width:100%;
+
+  margin-top:22px;
+
+  background:
+  linear-gradient(
+  135deg,
+  #0f766e,
+  #14b8a6);
+
+  opacity:0.45;
+
+  pointer-events:none;
+}
+
+.generate.active{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.clear-btn{
+
+  width:100%;
+
+  margin-top:10px;
+
+  background:
+  linear-gradient(
+  135deg,
+  #b91c1c,
+  #dc2626);
+}
+
+.copy-btn{
+
+  width:100%;
+
+  margin-top:12px;
+
+  background:
+  linear-gradient(
+  135deg,
+  #16a34a,
+  #22c55e);
+
+  opacity:0.45;
+
+  pointer-events:none;
+}
+
+.output{
+
+  margin-top:18px;
+
+  background:#0b1220;
+
+  border:
+  1px solid rgba(255,255,255,0.05);
+
+  border-radius:18px;
+
+  padding:18px;
+
+  white-space:pre-wrap;
+
+  font-size:13px;
+
+  line-height:1.45;
+
+  color:#dbeafe;
+
+  min-height:170px;
+}
+
+.info{
+
+  margin-top:16px;
+
+  background:
+  rgba(37,99,235,0.12);
+
+  border:
+  1px solid rgba(37,99,235,0.3);
+
+  border-radius:16px;
+
+  padding:14px;
+
+  font-size:12px;
+
+  line-height:1.6;
+
+  color:#bfdbfe;
+}
+
+.hidden{
+  display:none;
+}
+
+@media(max-width:480px){
+
+  .container{
+    padding:18px;
+  }
+
+  button{
+    font-size:11px;
+  }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="wrapper">
+
+<div class="container">
+
+<div class="nav">
+
+<button
+id="nav1"
+class="nav-active"
+onclick="showPage('page1')">
 
 1. Incoming Attack Calculator
 
+</button>
 
-/* =========================
-REPLACE THIS:
-Defense Call Maker
-
-WITH:
-========================= */
+<button
+id="nav2"
+onclick="goDefensePage()">
 
 2. Defense Call Maker
 
+</button>
 
-/* =========================
-REPLACE PLACEHOLDER:
-Example: 2h 30 min
+</div>
 
-WITH:
-========================= */
+<!-- PAGE 1 -->
 
-Example: HH:MM:SS
+<div id="page1">
 
+<div class="title">
+⚔️ Incoming Attack Calculator
+</div>
 
-/* =========================
-REPLACE HELPER TEXT:
-Format: 2h 30 min, 1h, 45m, 3h 15m
+<div class="section-title">
+🕒 Set Time
+</div>
 
-WITH:
-========================= */
+<div class="input-wrapper">
 
+<input
+id="durationInput"
+class="input-box"
+placeholder="Example: HH:MM:SS"
+/>
+
+<div
+class="clear-input"
+onclick="clearField('durationInput')">
+
+✕
+</div>
+
+</div>
+
+<div class="helper">
 Format: HH:MM:SS
+</div>
 
+<div id="liveClock" class="live-clock">
+🕒 Local Time: --:--:--
+</div>
 
-/* =========================
-REPLACE PLACEHOLDER:
-Server landing time 16:42
+<div class="or">Or</div>
 
-WITH:
-========================= */
+<div class="input-wrapper">
 
-Local Time HH:MM:SS
+<input
+id="serverInput"
+class="input-box"
+placeholder="Local Time HH:MM:SS"
+/>
 
+<div
+class="clear-input"
+onclick="clearField('serverInput')">
 
-/* =========================
-REPLACE ENTIRE
-goDefensePage()
-========================= */
+✕
+</div>
 
-function goDefensePage(){
+</div>
 
-if(!generatedTimestamp){
+<div class="quick-title">
+⚡ Quick Add
+</div>
 
-alert(
-"Please fill in page 1: Incoming Attack Calculator and Generate a Discord Timer"
+<div class="quick-grid">
+
+<button
+class="hour-btn"
+onclick="addHours(1)">
+
++1h
+
+</button>
+
+<button
+class="hour-btn"
+onclick="addHours(2)">
+
++2h
+
+</button>
+
+<button
+class="hour-btn"
+onclick="addHours(3)">
+
++3h
+
+</button>
+
+<button
+class="hour-btn"
+onclick="addHours(6)">
+
++6h
+
+</button>
+
+</div>
+
+<div style="height:10px;"></div>
+
+<div class="quick-grid">
+
+<button
+class="min-btn"
+onclick="addMinutes(1)">
+
++1m
+
+</button>
+
+<button
+class="min-btn"
+onclick="addMinutes(5)">
+
++5m
+
+</button>
+
+<button
+class="min-btn"
+onclick="addMinutes(10)">
+
++10m
+
+</button>
+
+<button
+class="min-btn"
+onclick="addMinutes(30)">
+
++30m
+
+</button>
+
+</div>
+
+<button
+id="generateBtn"
+class="generate"
+onclick="generateTimer()">
+
+⚡ Generate Discord Timer
+
+</button>
+
+<button
+class="clear-btn"
+onclick="clearAll()">
+
+🗑️ Clear
+
+</button>
+
+<div
+class="output"
+id="output">
+
+Your Discord timer will appear here...
+
+</div>
+
+<button
+class="copy-btn"
+id="gotoDefenseBtn"
+onclick="goDefensePage()">
+
+🛡️ Go To Defense Call Maker
+
+</button>
+
+<div class="info">
+
+ℹ️ <b>How to use</b><br><br>
+
+Paste the timestamp in Discord and everyone will see their local time and live countdown.
+
+</div>
+
+</div>
+
+<!-- PAGE 2 -->
+
+<div id="page2" class="hidden">
+
+<div class="title">
+🛡️ Defense Call Maker
+</div>
+
+<div class="label">
+1. Name of the attacker? *
+</div>
+
+<div class="input-wrapper">
+<input
+class="input-box required-field"
+id="attacker"
+placeholder="Name of attacker here">
+<div class="clear-input" onclick="clearDefenseField('attacker')">✕</div>
+</div>
+
+<div class="label">
+2. Which village needs defense? *
+</div>
+
+<div class="input-wrapper">
+<input
+class="input-box required-field"
+id="village"
+placeholder="Name of your village here">
+<div class="clear-input" onclick="clearDefenseField('village')">✕</div>
+</div>
+
+<div class="label">
+3. Exact time the attack arrives? *
+</div>
+
+<div class="input-wrapper">
+<input
+class="input-box required-field"
+id="arrival"
+placeholder="Generated automatically">
+<div class="clear-input" onclick="clearDefenseField('arrival')">✕</div>
+</div>
+
+<div class="label">
+4. How many waves incoming? *
+</div>
+
+<div class="input-wrapper">
+<input
+class="input-box required-field"
+id="waves"
+placeholder="Example: 8">
+<div class="clear-input" onclick="clearDefenseField('waves')">✕</div>
+</div>
+
+<div class="label">
+5. Watch Tower lvl? *
+</div>
+
+<div class="input-wrapper">
+<input
+class="input-box required-field"
+id="tower"
+placeholder="Example: 10">
+<div class="clear-input" onclick="clearDefenseField('tower')">✕</div>
+</div>
+
+<div class="label">
+6. Food situation? *
+</div>
+
+<div class="input-wrapper">
+<input
+class="input-box required-field"
+id="food"
+placeholder="80k+">
+<div class="clear-input" onclick="clearDefenseField('food')">✕</div>
+</div>
+
+<div class="label">
+7. Total granary size? *
+</div>
+
+<div class="input-wrapper">
+<input
+class="input-box required-field"
+id="granary"
+placeholder="160k">
+<div class="clear-input" onclick="clearDefenseField('granary')">✕</div>
+</div>
+
+<div class="label">
+8. Current defensive troops? *
+</div>
+
+<div class="input-wrapper">
+<input
+class="input-box required-field"
+id="troops"
+placeholder="6k">
+<div class="clear-input" onclick="clearDefenseField('troops')">✕</div>
+</div>
+
+<div class="label">
+9. Extra troops needed? *
+</div>
+
+<div class="input-wrapper">
+<input
+class="input-box required-field"
+id="needed"
+placeholder="20k">
+<div class="clear-input" onclick="clearDefenseField('needed')">✕</div>
+</div>
+
+<button
+class="generate"
+id="generateDefenseBtn"
+style="margin-top:22px;"
+onclick="generateDefense()">
+
+⚡ Generate Defense Report
+
+</button>
+
+<div
+class="output"
+id="deffOutput">
+
+Your defense report will appear here...
+
+</div>
+
+<button
+class="copy-btn"
+id="copyDefenseBtn"
+onclick="copyDefense()">
+
+📋 Copy To Discord
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+let generatedTimestamp = "";
+let generatedDiscordText = "";
+let generatedDefenseText = "";
+let startDurationText = "";
+
+const durationInput =
+document.getElementById("durationInput");
+
+const serverInput =
+document.getElementById("serverInput");
+
+const generateBtn =
+document.getElementById("generateBtn");
+
+const requiredFields =
+document.querySelectorAll(".required-field");
+
+const generateDefenseBtn =
+document.getElementById("generateDefenseBtn");
+
+function updateGenerateButton(){
+
+if(
+durationInput.value.trim() ||
+serverInput.value.trim()
+){
+generateBtn.classList.add("active");
+}else{
+generateBtn.classList.remove("active");
+}
+
+}
+
+durationInput.addEventListener(
+"input",
+updateGenerateButton
 );
 
+serverInput.addEventListener(
+"input",
+updateGenerateButton
+);
+
+requiredFields.forEach(field=>{
+
+field.addEventListener("input",()=>{
+
+checkDefenseFields();
+
+});
+
+});
+
+function checkDefenseFields(){
+
+let allFilled = true;
+
+requiredFields.forEach(field=>{
+
+removeIndicator(field);
+
+if(field.value.trim()){
+
+field.classList.add("valid");
+
+addIndicator(field);
+
+}else{
+
+field.classList.remove("valid");
+
+allFilled = false;
+
+}
+
+});
+
+if(allFilled){
+
+generateDefenseBtn.classList.add("active");
+
+}else{
+
+generateDefenseBtn.classList.remove("active");
+
+}
+
+}
+
+function addIndicator(field){
+
+if(field.parentNode.querySelector(".valid-indicator"))
 return;
 
+const icon =
+document.createElement("div");
+
+icon.className = "valid-indicator";
+
+icon.innerText = "➜";
+
+field.parentNode.appendChild(icon);
+
 }
 
-showPage("page2");
+function removeIndicator(field){
 
-warningBox.classList.add("hidden");
+const existing =
+field.parentNode.querySelector(".valid-indicator");
+
+if(existing){
+existing.remove();
+}
 
 }
 
+function clearDefenseField(id){
 
-/* =========================
-REPLACE ENTIRE
-generateTimer()
-========================= */
+document.getElementById(id).value = "";
+
+checkDefenseFields();
+
+}
+
+function clearField(id){
+
+document.getElementById(id).value = "";
+
+resetGeneratedData();
+
+}
+
+function resetGeneratedData(){
+
+generatedTimestamp = "";
+generatedDiscordText = "";
+generatedDefenseText = "";
+startDurationText = "";
+
+output.innerText =
+"Your Discord timer will appear here...";
+
+deffOutput.innerText =
+"Your defense report will appear here...";
+
+arrival.value = "";
+
+document
+.getElementById("gotoDefenseBtn")
+.style.opacity = "0.45";
+
+document
+.getElementById("gotoDefenseBtn")
+.style.pointerEvents = "none";
+
+updateGenerateButton();
+
+}
+
+function parseInput(str){
+
+const parts = str.split(":");
+
+return (
+(parseInt(parts[0]) * 3600) +
+(parseInt(parts[1]) * 60) +
+parseInt(parts[2])
+);
+
+}
+
+function updateInput(totalSeconds){
+
+const h =
+String(Math.floor(totalSeconds / 3600))
+.padStart(2,"0");
+
+const m =
+String(Math.floor((totalSeconds % 3600)/60))
+.padStart(2,"0");
+
+const s =
+String(totalSeconds % 60)
+.padStart(2,"0");
+
+durationInput.value =
+`${h}:${m}:${s}`;
+
+updateGenerateButton();
+
+}
+
+function addHours(h){
+
+let total =
+durationInput.value
+? parseInput(durationInput.value)
+: 0;
+
+total += h * 3600;
+
+updateInput(total);
+
+}
+
+function addMinutes(m){
+
+let total =
+durationInput.value
+? parseInput(durationInput.value)
+: 0;
+
+total += m * 60;
+
+updateInput(total);
+
+}
 
 function generateTimer(){
 
@@ -136,22 +963,8 @@ return;
 
 }
 
-const parts =
-durationInput.value.split(":");
-
-const hours =
-parseInt(parts[0]);
-
-const minutes =
-parseInt(parts[1]);
-
-const seconds =
-parseInt(parts[2]);
-
 totalSeconds =
-(hours * 3600) +
-(minutes * 60) +
-seconds;
+parseInput(durationInput.value);
 
 startDurationText =
 durationInput.value;
@@ -192,17 +1005,8 @@ target.setDate(target.getDate()+1);
 totalSeconds =
 Math.floor((target-now)/1000);
 
-const h =
-Math.floor(totalSeconds/3600);
-
-const m =
-Math.floor((totalSeconds%3600)/60);
-
-const s =
-totalSeconds%60;
-
 startDurationText =
-`${h}h ${m}m ${s}s`;
+durationInput.value;
 
 }
 
@@ -239,11 +1043,124 @@ document
 
 }
 
+function clearAll(){
 
-/* =========================
-ADD THIS JAVASCRIPT
-AT BOTTOM OF SCRIPT
-========================= */
+durationInput.value = "";
+serverInput.value = "";
+
+resetGeneratedData();
+
+}
+
+function showPage(id){
+
+page1.classList.add("hidden");
+page2.classList.add("hidden");
+
+document
+.getElementById(id)
+.classList.remove("hidden");
+
+nav1.classList.remove("nav-active");
+nav2.classList.remove("nav-active");
+
+if(id==="page1"){
+nav1.classList.add("nav-active");
+}else{
+nav2.classList.add("nav-active");
+}
+
+}
+
+function goDefensePage(){
+
+if(!generatedTimestamp){
+
+alert(
+"Please fill in page 1: Incoming Attack Calculator and Generate a Discord Timer"
+);
+
+return;
+
+}
+
+showPage("page2");
+
+}
+
+function generateDefense(){
+
+let missing = false;
+
+requiredFields.forEach(field=>{
+
+if(!field.value.trim()){
+missing = true;
+}
+
+});
+
+if(missing){
+
+deffOutput.innerText =
+"❌ Please fill in all the fields.";
+
+return;
+
+}
+
+generatedDefenseText =
+`🛡️ DEFENSE CALL
+
+⌛ Attack spotted: ${startDurationText} ago
+📅 Lands: ${arrival.value}
+⏳ Countdown: ${generatedDiscordText.match(/<t:.*:R>/)[0]}
+
+👤 Attacker: ${attacker.value}
+🌊 Waves: ${waves.value}
+
+🏛️ Target village: ${village.value}
+🗼 Watch Tower lvl: ${tower.value}
+
+🛡️ Current Defense in village: ${troops.value}
+⚔️ Extra Troops Needed: ${needed.value}
+
+🌾 Current food in village: ${food.value}
+🏦 Granary capacity: ${granary.value}`;
+
+deffOutput.innerText =
+generatedDefenseText;
+
+document
+.getElementById("copyDefenseBtn")
+.style.opacity = "1";
+
+document
+.getElementById("copyDefenseBtn")
+.style.pointerEvents = "auto";
+
+}
+
+function copyDefense(){
+
+if(!generatedDefenseText) return;
+
+navigator.clipboard.writeText(
+generatedDefenseText
+);
+
+const btn =
+document.getElementById("copyDefenseBtn");
+
+btn.innerText =
+"✅ Copied Successfully";
+
+setTimeout(()=>{
+btn.innerText =
+"📋 Copy To Discord";
+},1800);
+
+}
 
 function updateLiveClock(){
 
@@ -273,3 +1190,8 @@ updateLiveClock,
 );
 
 updateLiveClock();
+
+</script>
+
+</body>
+  </html>
