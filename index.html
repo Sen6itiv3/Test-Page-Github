@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
@@ -23,13 +22,11 @@ href='data:image/svg+xml,
 body{
   margin:0;
   min-height:100vh;
-
   background:
   radial-gradient(circle at top,
   #172554 0%,
   #0b1120 45%,
   #050816 100%);
-
   font-family:Inter,Arial,sans-serif;
   color:white;
 }
@@ -41,20 +38,13 @@ body{
 }
 
 .container{
-
   width:100%;
   max-width:480px;
-
   background:rgba(15,23,42,0.84);
-
   border:1px solid rgba(255,255,255,0.06);
-
   border-radius:26px;
-
   padding:22px;
-
   backdrop-filter:blur(14px);
-
   box-shadow:
   0 10px 40px rgba(0,0,0,0.35),
   inset 0 1px 0 rgba(255,255,255,0.04);
@@ -90,7 +80,6 @@ body{
   font-size:13px;
   opacity:0.75;
   margin-bottom:8px;
-
   display:flex;
   align-items:center;
   gap:6px;
@@ -132,7 +121,6 @@ body{
 .input-box{
 
   width:100%;
-
   background:#0f172a;
 
   border:
@@ -142,13 +130,9 @@ body{
   0 0 0 1px rgba(255,255,255,0.04);
 
   border-radius:16px;
-
   padding:15px;
-
   color:white;
-
   font-size:14px;
-
   outline:none;
 }
 
@@ -159,18 +143,12 @@ body{
 }
 
 .clear-input{
-
   position:absolute;
-
   right:14px;
   top:50%;
-
   transform:translateY(-50%);
-
   opacity:0.45;
-
   cursor:pointer;
-
   font-size:14px;
 }
 
@@ -188,51 +166,31 @@ body{
 }
 
 .live-clock{
-
   margin-top:12px;
-
   background:
   rgba(37,99,235,0.08);
-
   border:
   1px solid rgba(37,99,235,0.18);
-
   border-radius:14px;
-
   padding:10px 12px;
-
   font-size:12px;
-
   color:#93c5fd;
-
   text-align:center;
-
   font-weight:500;
-
   letter-spacing:0.3px;
-
   opacity:0.8;
-
   cursor:default;
-
   user-select:none;
 }
 
 button{
-
   border:none;
-
   border-radius:14px;
-
   padding:13px 10px;
-
   color:white;
-
   font-size:12px;
   font-weight:600;
-
   cursor:pointer;
-
   transition:0.15s;
 }
 
@@ -263,19 +221,14 @@ button:active{
 }
 
 .generate{
-
   width:100%;
-
   margin-top:22px;
-
   background:
   linear-gradient(
   135deg,
   #0f766e,
   #14b8a6);
-
   opacity:0.45;
-
   pointer-events:none;
 }
 
@@ -285,11 +238,8 @@ button:active{
 }
 
 .clear-btn{
-
   width:100%;
-
   margin-top:10px;
-
   background:
   linear-gradient(
   135deg,
@@ -298,64 +248,41 @@ button:active{
 }
 
 .copy-btn{
-
   width:100%;
-
   margin-top:12px;
-
   background:
   linear-gradient(
   135deg,
   #16a34a,
   #22c55e);
-
   opacity:0.45;
-
   pointer-events:none;
 }
 
 .output{
-
   margin-top:18px;
-
   background:#0b1220;
-
   border:
   1px solid rgba(255,255,255,0.05);
-
   border-radius:18px;
-
   padding:18px;
-
   white-space:pre-wrap;
-
   font-size:13px;
-
   line-height:1.45;
-
   color:#dbeafe;
-
   min-height:170px;
 }
 
 .info{
-
   margin-top:16px;
-
   background:
   rgba(37,99,235,0.12);
-
   border:
   1px solid rgba(37,99,235,0.3);
-
   border-radius:16px;
-
   padding:14px;
-
   font-size:12px;
-
   line-height:1.6;
-
   color:#bfdbfe;
 }
 
@@ -365,13 +292,13 @@ button:active{
 
 @media(max-width:480px){
 
-  .container{
-    padding:18px;
-  }
+.container{
+  padding:18px;
+}
 
-  button{
-    font-size:11px;
-  }
+button{
+  font-size:11px;
+}
 
 }
 
@@ -1065,8 +992,6 @@ document
 .getElementById("gotoDefenseBtn")
 .style.pointerEvents = "auto";
 
-showPage("page2");
-
 checkDefenseFields();
 
 }
@@ -1222,4 +1147,4 @@ updateLiveClock();
 </script>
 
 </body>
-  </html>
+</html>
