@@ -41,7 +41,7 @@ padding:20px;
 
 .container{
 width:100%;
-max-width:560px;
+max-width:580px;
 
 background:rgba(15,23,42,0.88);
 
@@ -86,7 +86,7 @@ margin-bottom:24px;
 
 .section-title{
 font-size:13px;
-opacity:0.8;
+opacity:0.85;
 margin-bottom:8px;
 }
 
@@ -123,10 +123,10 @@ width:100%;
 background:#0f172a;
 
 border:
-1px solid rgba(255,255,255,0.18);
+1px solid rgba(255,255,255,0.20);
 
 box-shadow:
-0 0 0 1px rgba(255,255,255,0.04);
+0 0 0 1px rgba(255,255,255,0.05);
 
 border-radius:16px;
 
@@ -137,6 +137,10 @@ color:white;
 font-size:14px;
 
 outline:none;
+}
+
+.input-box:focus{
+border:1px solid #3b82f6;
 }
 
 .select-box{
@@ -203,9 +207,7 @@ text-align:center;
 
 font-weight:500;
 
-opacity:0.8;
-
-user-select:none;
+opacity:0.85;
 }
 
 button{
@@ -324,7 +326,7 @@ white-space:pre-wrap;
 
 font-size:13px;
 
-line-height:1.45;
+line-height:1.5;
 
 color:#dbeafe;
 
@@ -443,7 +445,7 @@ onclick="clearField('timeInput')">
 </div>
 
 <div class="helper">
-Format: HH:MM:SS
+Format: HH:MM:SS — Supports up to 7 days ahead
 </div>
 
 <div id="liveClock" class="live-clock">
@@ -534,7 +536,10 @@ onclick="goDefensePage()">
 
 ℹ️ <b>How to use</b><br><br>
 
-Paste the timestamp in Discord and everyone will see their local time and live countdown.
+Paste the timestamp in Discord and everyone will see:
+<br><br>
+🕒 Their own local time<br>
+⏳ A live countdown
 
 </div>
 
@@ -667,7 +672,7 @@ const names = [
 "Saturday"
 ];
 
-for(let i=0;i<4;i++){
+for(let i=0;i<8;i++){
 
 const d = new Date();
 
@@ -711,10 +716,26 @@ generateBtn.classList.remove("active");
 
 }
 
-timeInput.addEventListener(
-"input",
-updateGenerateButton
-);
+timeInput.addEventListener("input",()=>{
+
+smartNormalizeTime();
+updateGenerateButton();
+
+if(generatedTimestamp){
+generateTimer(true);
+}
+
+});
+
+document
+.getElementById("daySelect")
+.addEventListener("change",()=>{
+
+if(generatedTimestamp){
+generateTimer(true);
+}
+
+});
 
 requiredFields.forEach(field=>{
 
@@ -725,6 +746,48 @@ checkDefenseFields();
 });
 
 });
+
+function smartNormalizeTime(){
+
+const value =
+timeInput.value.trim();
+
+if(!/^\d+:\d{2}:\d{2}$/.test(value))
+return;
+
+let parts =
+value.split(":");
+
+let hours =
+parseInt(parts[0]);
+
+let minutes =
+parseInt(parts[1]);
+
+let seconds =
+parseInt(parts[2]);
+
+if(hours > 191){
+
+output.innerText =
+"❌ Maximum supported landing time is 7 days ahead.";
+
+return;
+}
+
+const extraDays =
+Math.floor(hours / 24);
+
+hours =
+hours % 24;
+
+document.getElementById("daySelect").value =
+extraDays;
+
+timeInput.value =
+`${String(hours).padStart(2,"0")}:${String(minutes).padStart(2,"0")}:${String(seconds).padStart(2,"0")}`;
+
+}
 
 function checkDefenseFields(){
 
@@ -876,7 +939,13 @@ String(total%60)
 timeInput.value =
 `${h}:${m}:${s}`;
 
+smartNormalizeTime();
+
 updateGenerateButton();
+
+if(generatedTimestamp){
+generateTimer(true);
+}
 
 }
 
@@ -907,7 +976,7 @@ return `${h}h ${m}m ${s}s`;
 
 }
 
-function generateTimer(){
+function generateTimer(silent=false){
 
 const valid =
 /^\d{2}:\d{2}:\d{2}$/
@@ -960,6 +1029,8 @@ const result =
 
 output.innerText = result;
 
+if(!silent){
+
 navigator.clipboard.writeText(result);
 
 generateBtn.innerText =
@@ -971,6 +1042,8 @@ generateBtn.innerText =
 "⚡ Generate Discord Timer";
 
 },1800);
+
+}
 
 arrival.value =
 `<t:${landingUnix}:F>`;
@@ -992,6 +1065,10 @@ document
 .style.pointerEvents = "auto";
 
 startLiveCountdown();
+
+if(generatedDefenseText){
+generateDefense();
+}
 
 }
 
