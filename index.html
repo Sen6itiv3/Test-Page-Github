@@ -41,7 +41,7 @@ body{
 
 .container{
   width:100%;
-  max-width:520px;
+  max-width:560px;
 
   background:rgba(15,23,42,0.88);
 
@@ -116,8 +116,11 @@ body{
   position:relative;
 }
 
-.input-box{
+.input-box,
+.select-box{
+
   width:100%;
+
   background:#0f172a;
 
   border:
@@ -135,6 +138,11 @@ body{
   font-size:14px;
 
   outline:none;
+}
+
+.select-box{
+  margin-top:12px;
+  cursor:pointer;
 }
 
 .input-box::placeholder{
@@ -176,6 +184,7 @@ body{
 }
 
 .live-clock{
+
   margin-top:12px;
 
   background:
@@ -366,10 +375,29 @@ button:active{
   display:none;
 }
 
+.report-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:12px;
+}
+
+.report-item{
+  background:#111827;
+  border-radius:12px;
+  padding:10px;
+  font-size:12px;
+  line-height:1.4;
+}
+
 @media(max-width:520px){
 
   .container{
     padding:18px;
+  }
+
+  .report-grid{
+    grid-template-columns:1fr;
   }
 
 }
@@ -420,14 +448,14 @@ onclick="goDefensePage()">
 <div class="input-wrapper">
 
 <input
-id="durationInput"
+id="timeInput"
 class="input-box"
-placeholder="Example: HH:MM:SS"
+placeholder="Example: 15:36:20"
 />
 
 <div
 class="clear-input"
-onclick="clearField('durationInput')">
+onclick="clearField('timeInput')">
 
 ✕
 
@@ -442,6 +470,15 @@ Format: HH:MM:SS
 <div id="liveClock" class="live-clock">
 🕒 Your Local Time: --:--:--
 </div>
+
+<select id="daySelect" class="select-box">
+
+<option value="0">Today</option>
+<option value="1">Tomorrow</option>
+<option value="2">+2 Days</option>
+<option value="3">+3 Days</option>
+
+</select>
 
 <div class="quick-title">
 ⚡ Quick Add
@@ -539,9 +576,140 @@ Paste the timestamp in Discord and everyone will see their local time and live c
 🛡️ Defense Call Maker
 </div>
 
-<div class="output">
-Defense Call Maker ready.
+<div class="label">
+1. Name of the attacker? *
 </div>
+
+<div class="input-wrapper">
+<input
+class="input-box required-field"
+id="attacker"
+placeholder="Name of attacker here">
+<div class="clear-input" onclick="clearDefenseField('attacker')">✕</div>
+</div>
+
+<div class="label">
+2. Which village needs defense? *
+</div>
+
+<div class="input-wrapper">
+<input
+class="input-box required-field"
+id="village"
+placeholder="Name of your village here">
+<div class="clear-input" onclick="clearDefenseField('village')">✕</div>
+</div>
+
+<div class="label">
+3. Exact time the attack arrives? *
+</div>
+
+<div class="input-wrapper">
+<input
+class="input-box required-field"
+id="arrival"
+placeholder="Generated automatically">
+<div class="clear-input" onclick="clearDefenseField('arrival')">✕</div>
+</div>
+
+<div class="label">
+4. How many waves incoming? *
+</div>
+
+<div class="input-wrapper">
+<input
+class="input-box required-field"
+id="waves"
+placeholder="Example: 8">
+<div class="clear-input" onclick="clearDefenseField('waves')">✕</div>
+</div>
+
+<div class="label">
+5. Watch Tower lvl? *
+</div>
+
+<div class="input-wrapper">
+<input
+class="input-box required-field"
+id="tower"
+placeholder="Example: 10">
+<div class="clear-input" onclick="clearDefenseField('tower')">✕</div>
+</div>
+
+<div class="label">
+6. Food situation? *
+</div>
+
+<div class="input-wrapper">
+<input
+class="input-box required-field"
+id="food"
+placeholder="80k+">
+<div class="clear-input" onclick="clearDefenseField('food')">✕</div>
+</div>
+
+<div class="label">
+7. Total granary size? *
+</div>
+
+<div class="input-wrapper">
+<input
+class="input-box required-field"
+id="granary"
+placeholder="160k">
+<div class="clear-input" onclick="clearDefenseField('granary')">✕</div>
+</div>
+
+<div class="label">
+8. Current defensive troops? *
+</div>
+
+<div class="input-wrapper">
+<input
+class="input-box required-field"
+id="troops"
+placeholder="6k">
+<div class="clear-input" onclick="clearDefenseField('troops')">✕</div>
+</div>
+
+<div class="label">
+9. Extra troops needed? *
+</div>
+
+<div class="input-wrapper">
+<input
+class="input-box required-field"
+id="needed"
+placeholder="20k">
+<div class="clear-input" onclick="clearDefenseField('needed')">✕</div>
+</div>
+
+<button
+class="generate"
+id="generateDefenseBtn"
+style="margin-top:22px;"
+onclick="generateDefense()">
+
+⚡ Generate Defense Report
+
+</button>
+
+<div
+class="output"
+id="deffOutput">
+
+Your defense report will appear here...
+
+</div>
+
+<button
+class="copy-btn"
+id="copyDefenseBtn"
+onclick="copyDefense()">
+
+📋 Copy To Discord
+
+</button>
 
 </div>
 
@@ -554,16 +722,23 @@ Defense Call Maker ready.
 let generatedTimestamp = "";
 let landingUnix = 0;
 let countdownInterval = null;
+let generatedDefenseText = "";
 
-const durationInput =
-document.getElementById("durationInput");
+const timeInput =
+document.getElementById("timeInput");
 
 const generateBtn =
 document.getElementById("generateBtn");
 
+const requiredFields =
+document.querySelectorAll(".required-field");
+
+const generateDefenseBtn =
+document.getElementById("generateDefenseBtn");
+
 function updateGenerateButton(){
 
-if(durationInput.value.trim()){
+if(timeInput.value.trim()){
 
 generateBtn.classList.add("active");
 
@@ -575,10 +750,91 @@ generateBtn.classList.remove("active");
 
 }
 
-durationInput.addEventListener(
+timeInput.addEventListener(
 "input",
 updateGenerateButton
 );
+
+requiredFields.forEach(field=>{
+
+field.addEventListener("input",()=>{
+
+checkDefenseFields();
+
+});
+
+});
+
+function checkDefenseFields(){
+
+let allFilled = true;
+
+requiredFields.forEach(field=>{
+
+removeIndicator(field);
+
+if(field.value.trim()){
+
+field.classList.add("valid");
+
+addIndicator(field);
+
+}else{
+
+field.classList.remove("valid");
+
+allFilled = false;
+
+}
+
+});
+
+if(allFilled){
+
+generateDefenseBtn.classList.add("active");
+
+}else{
+
+generateDefenseBtn.classList.remove("active");
+
+}
+
+}
+
+function addIndicator(field){
+
+if(field.parentNode.querySelector(".valid-indicator"))
+return;
+
+const icon =
+document.createElement("div");
+
+icon.className = "valid-indicator";
+
+icon.innerText = "✔";
+
+field.parentNode.appendChild(icon);
+
+}
+
+function removeIndicator(field){
+
+const existing =
+field.parentNode.querySelector(".valid-indicator");
+
+if(existing){
+existing.remove();
+}
+
+}
+
+function clearDefenseField(id){
+
+document.getElementById(id).value = "";
+
+checkDefenseFields();
+
+}
 
 function clearField(id){
 
@@ -591,9 +847,15 @@ resetGeneratedData();
 function resetGeneratedData(){
 
 generatedTimestamp = "";
+generatedDefenseText = "";
 
 output.innerText =
 "Your Discord timer will appear here...";
+
+deffOutput.innerText =
+"Your defense report will appear here...";
+
+arrival.value = "";
 
 document
 .getElementById("gotoDefenseBtn")
@@ -617,29 +879,46 @@ function parseInput(str){
 
 const parts = str.split(":");
 
-return (
-(parseInt(parts[0]) * 3600) +
-(parseInt(parts[1]) * 60) +
-parseInt(parts[2])
-);
+return {
+h:parseInt(parts[0]),
+m:parseInt(parts[1]),
+s:parseInt(parts[2])
+};
 
 }
 
-function updateInput(totalSeconds){
+function addTime(seconds){
+
+let current =
+timeInput.value;
+
+if(!current){
+
+current = "00:00:00";
+
+}
+
+const p =
+parseInput(current);
+
+let total =
+(p.h*3600)+(p.m*60)+p.s;
+
+total += seconds;
 
 const h =
-String(Math.floor(totalSeconds / 3600))
+String(Math.floor(total/3600))
 .padStart(2,"0");
 
 const m =
-String(Math.floor((totalSeconds % 3600)/60))
+String(Math.floor((total%3600)/60))
 .padStart(2,"0");
 
 const s =
-String(totalSeconds % 60)
+String(total%60)
 .padStart(2,"0");
 
-durationInput.value =
+timeInput.value =
 `${h}:${m}:${s}`;
 
 updateGenerateButton();
@@ -647,49 +926,22 @@ updateGenerateButton();
 }
 
 function addHours(h){
-
-let total =
-durationInput.value
-? parseInput(durationInput.value)
-: 0;
-
-total += h * 3600;
-
-updateInput(total);
-
+addTime(h*3600);
 }
 
 function addMinutes(m){
-
-let total =
-durationInput.value
-? parseInput(durationInput.value)
-: 0;
-
-total += m * 60;
-
-updateInput(total);
-
+addTime(m*60);
 }
 
 function addSeconds(s){
-
-let total =
-durationInput.value
-? parseInput(durationInput.value)
-: 0;
-
-total += s;
-
-updateInput(total);
-
+addTime(s);
 }
 
 function generateTimer(){
 
 const valid =
 /^\d{2}:\d{2}:\d{2}$/
-.test(durationInput.value.trim());
+.test(timeInput.value.trim());
 
 if(!valid){
 
@@ -700,23 +952,42 @@ return;
 
 }
 
-const totalSeconds =
-parseInput(durationInput.value);
+const parts =
+parseInput(timeInput.value);
 
-const future =
-Date.now() +
-(totalSeconds * 1000);
+const now =
+new Date();
+
+const target =
+new Date();
+
+target.setHours(parts.h);
+target.setMinutes(parts.m);
+target.setSeconds(parts.s);
+
+const extraDays =
+parseInt(
+document.getElementById("daySelect").value
+);
+
+target.setDate(
+target.getDate() + extraDays
+);
 
 landingUnix =
-Math.floor(future/1000);
+Math.floor(target.getTime()/1000);
 
 generatedTimestamp =
 `<t:${landingUnix}:F>`;
 
+const diff =
+landingUnix -
+Math.floor(Date.now()/1000);
+
 const result =
 `⚔️ Attack Incoming
 
-⌛ Attack spotted: ${durationInput.value} ago
+⌛ Attack spotted: ${formatDiff(diff)} ago
 📅 Lands: <t:${landingUnix}:F>
 ⏳ Countdown: <t:${landingUnix}:R>`;
 
@@ -734,6 +1005,9 @@ generateBtn.innerText =
 
 },1800);
 
+arrival.value =
+`<t:${landingUnix}:F>`;
+
 document
 .getElementById("gotoDefenseBtn")
 .style.opacity = "1";
@@ -743,6 +1017,21 @@ document
 .style.pointerEvents = "auto";
 
 startLiveCountdown();
+
+}
+
+function formatDiff(diff){
+
+const h =
+Math.floor(diff/3600);
+
+const m =
+Math.floor((diff%3600)/60);
+
+const s =
+Math.floor(diff%60);
+
+return `${h}h ${m}m ${s}s`;
 
 }
 
@@ -788,7 +1077,7 @@ preview.innerHTML =
 
 function clearAll(){
 
-durationInput.value = "";
+timeInput.value = "";
 
 resetGeneratedData();
 
@@ -827,6 +1116,78 @@ return;
 }
 
 showPage("page2");
+
+}
+
+function generateDefense(){
+
+let missing = false;
+
+requiredFields.forEach(field=>{
+
+if(!field.value.trim()){
+missing = true;
+}
+
+});
+
+if(missing){
+
+deffOutput.innerText =
+"❌ Please fill in all the fields.";
+
+return;
+
+}
+
+generatedDefenseText =
+`🛡️ DEFENSE CALL
+
+📅 Lands: ${arrival.value}
+
+👤 Attacker: ${attacker.value}
+🌊 Waves: ${waves.value}
+
+🏛️ Target village: ${village.value}
+🗼 Watch Tower lvl: ${tower.value}
+
+🛡️ Current Defense in village: ${troops.value}
+⚔️ Extra Troops Needed: ${needed.value}
+
+🌾 Current food in village: ${food.value}
+🏦 Granary capacity: ${granary.value}`;
+
+deffOutput.innerText =
+generatedDefenseText;
+
+document
+.getElementById("copyDefenseBtn")
+.style.opacity = "1";
+
+document
+.getElementById("copyDefenseBtn")
+.style.pointerEvents = "auto";
+
+}
+
+function copyDefense(){
+
+if(!generatedDefenseText) return;
+
+navigator.clipboard.writeText(
+generatedDefenseText
+);
+
+const btn =
+document.getElementById("copyDefenseBtn");
+
+btn.innerText =
+"✅ Copied Successfully";
+
+setTimeout(()=>{
+btn.innerText =
+"📋 Copy To Discord";
+},1800);
 
 }
 
