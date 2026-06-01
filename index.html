@@ -16,389 +16,368 @@ href='data:image/svg+xml,
 <style>
 
 *{
-  box-sizing:border-box;
+box-sizing:border-box;
 }
 
 body{
-  margin:0;
-  min-height:100vh;
+margin:0;
+min-height:100vh;
 
-  background:
-  radial-gradient(circle at top,
-  #172554 0%,
-  #0b1120 45%,
-  #050816 100%);
+background:
+radial-gradient(circle at top,
+#172554 0%,
+#0b1120 45%,
+#050816 100%);
 
-  font-family:Inter,Arial,sans-serif;
-  color:white;
+font-family:Inter,Arial,sans-serif;
+color:white;
 }
 
 .wrapper{
-  display:flex;
-  justify-content:center;
-  padding:20px;
+display:flex;
+justify-content:center;
+padding:20px;
 }
 
 .container{
-  width:100%;
-  max-width:560px;
+width:100%;
+max-width:560px;
 
-  background:rgba(15,23,42,0.88);
+background:rgba(15,23,42,0.88);
 
-  border:1px solid rgba(255,255,255,0.06);
+border:1px solid rgba(255,255,255,0.06);
 
-  border-radius:28px;
+border-radius:28px;
 
-  padding:22px;
+padding:22px;
 
-  backdrop-filter:blur(16px);
+backdrop-filter:blur(16px);
 
-  box-shadow:
-  0 10px 40px rgba(0,0,0,0.35),
-  inset 0 1px 0 rgba(255,255,255,0.04);
+box-shadow:
+0 10px 40px rgba(0,0,0,0.35),
+inset 0 1px 0 rgba(255,255,255,0.04);
 }
 
 .nav{
-  display:flex;
-  gap:10px;
-  margin-bottom:20px;
+display:flex;
+gap:10px;
+margin-bottom:20px;
 }
 
 .nav button{
-  flex:1;
-  background:#111827;
+flex:1;
+background:#111827;
 }
 
 .nav-active{
-  background:
-  linear-gradient(
-  135deg,
-  #2563eb,
-  #1d4ed8)!important;
+background:
+linear-gradient(
+135deg,
+#2563eb,
+#1d4ed8)!important;
 }
 
 .title{
-  text-align:center;
-  font-size:23px;
-  font-weight:700;
-  margin-bottom:24px;
+text-align:center;
+font-size:23px;
+font-weight:700;
+margin-bottom:24px;
 }
 
 .section-title{
-  font-size:13px;
-  opacity:0.8;
-  margin-bottom:8px;
+font-size:13px;
+opacity:0.8;
+margin-bottom:8px;
 }
 
 .helper{
-  margin-top:7px;
-  font-size:11px;
-  opacity:0.5;
-  font-style:italic;
+margin-top:7px;
+font-size:11px;
+opacity:0.5;
+font-style:italic;
 }
 
 .quick-title{
-  margin-top:22px;
-  margin-bottom:12px;
-  font-size:13px;
-  opacity:0.8;
+margin-top:22px;
+margin-bottom:12px;
+font-size:13px;
+opacity:0.8;
 }
 
 .label{
-  font-size:11px;
-  opacity:0.6;
-  margin-bottom:7px;
-  margin-top:14px;
-  font-style:italic;
+font-size:11px;
+opacity:0.6;
+margin-bottom:7px;
+margin-top:14px;
+font-style:italic;
 }
 
 .input-wrapper{
-  position:relative;
+position:relative;
 }
 
 .input-box,
 .select-box{
+width:100%;
 
-  width:100%;
+background:#0f172a;
 
-  background:#0f172a;
+border:
+1px solid rgba(255,255,255,0.18);
 
-  border:
-  1px solid rgba(255,255,255,0.18);
+box-shadow:
+0 0 0 1px rgba(255,255,255,0.04);
 
-  box-shadow:
-  0 0 0 1px rgba(255,255,255,0.04);
+border-radius:16px;
 
-  border-radius:16px;
+padding:15px;
 
-  padding:15px;
+color:white;
 
-  color:white;
+font-size:14px;
 
-  font-size:14px;
-
-  outline:none;
+outline:none;
 }
 
 .select-box{
-  margin-top:12px;
-  cursor:pointer;
+margin-top:12px;
+cursor:pointer;
 }
 
 .input-box::placeholder{
-  color:rgba(255,255,255,0.45);
-  font-style:italic;
-  font-size:13px;
+color:rgba(255,255,255,0.45);
+font-style:italic;
+font-size:13px;
 }
 
 .clear-input{
-  position:absolute;
+position:absolute;
 
-  right:14px;
-  top:50%;
+right:14px;
+top:50%;
 
-  transform:translateY(-50%);
+transform:translateY(-50%);
 
-  opacity:0.45;
+opacity:0.45;
 
-  cursor:pointer;
+cursor:pointer;
 
-  font-size:14px;
+font-size:14px;
 }
 
 .valid{
-  border:1px solid #22c55e!important;
+border:1px solid #22c55e!important;
 }
 
 .valid-indicator{
-  position:absolute;
+position:absolute;
 
-  right:40px;
-  top:50%;
+right:40px;
+top:50%;
 
-  transform:translateY(-50%);
+transform:translateY(-50%);
 
-  color:#22c55e;
+color:#22c55e;
 
-  font-size:13px;
+font-size:13px;
 }
 
 .live-clock{
+margin-top:12px;
 
-  margin-top:12px;
+background:
+rgba(37,99,235,0.08);
 
-  background:
-  rgba(37,99,235,0.08);
+border:
+1px solid rgba(37,99,235,0.18);
 
-  border:
-  1px solid rgba(37,99,235,0.18);
+border-radius:14px;
 
-  border-radius:14px;
+padding:10px 12px;
 
-  padding:10px 12px;
+font-size:12px;
 
-  font-size:12px;
+color:#93c5fd;
 
-  color:#93c5fd;
+text-align:center;
 
-  text-align:center;
+font-weight:500;
 
-  font-weight:500;
+opacity:0.8;
 
-  opacity:0.8;
-
-  user-select:none;
+user-select:none;
 }
 
 button{
-  border:none;
+border:none;
 
-  border-radius:14px;
+border-radius:14px;
 
-  padding:13px 10px;
+padding:13px 10px;
 
-  color:white;
+color:white;
 
-  font-size:12px;
-  font-weight:600;
+font-size:12px;
+font-weight:600;
 
-  cursor:pointer;
+cursor:pointer;
 
-  transition:0.15s;
+transition:0.15s;
 }
 
 button:active{
-  transform:scale(0.97);
+transform:scale(0.97);
 }
 
 .quick-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:10px;
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:10px;
 }
 
 .hour-btn{
-  background:
-  linear-gradient(
-  135deg,
-  #2563eb,
-  #1d4ed8);
+background:
+linear-gradient(
+135deg,
+#2563eb,
+#1d4ed8);
 }
 
 .min-btn{
-  background:
-  linear-gradient(
-  135deg,
-  #9333ea,
-  #7e22ce);
+background:
+linear-gradient(
+135deg,
+#9333ea,
+#7e22ce);
 }
 
 .sec-btn{
-  background:
-  linear-gradient(
-  135deg,
-  #ea580c,
-  #dc2626);
+background:
+linear-gradient(
+135deg,
+#ea580c,
+#dc2626);
 }
 
 .generate{
-  width:100%;
+width:100%;
 
-  margin-top:22px;
+margin-top:22px;
 
-  background:
-  linear-gradient(
-  135deg,
-  #0f766e,
-  #14b8a6);
+background:
+linear-gradient(
+135deg,
+#0f766e,
+#14b8a6);
 
-  opacity:0.45;
+opacity:0.45;
 
-  pointer-events:none;
+pointer-events:none;
 }
 
 .generate.active{
-  opacity:1;
-  pointer-events:auto;
+opacity:1;
+pointer-events:auto;
 }
 
 .clear-btn{
-  width:100%;
+width:100%;
 
-  margin-top:10px;
+margin-top:10px;
 
-  background:
-  linear-gradient(
-  135deg,
-  #b91c1c,
-  #dc2626);
+background:
+linear-gradient(
+135deg,
+#b91c1c,
+#dc2626);
 }
 
 .copy-btn{
-  width:100%;
+width:100%;
 
-  margin-top:12px;
+margin-top:12px;
 
-  background:
-  linear-gradient(
-  135deg,
-  #16a34a,
-  #22c55e);
+background:
+linear-gradient(
+135deg,
+#16a34a,
+#22c55e);
 
-  opacity:0.45;
+opacity:0.45;
 
-  pointer-events:none;
+pointer-events:none;
 }
 
 .output{
-  margin-top:18px;
+margin-top:18px;
 
-  background:#0b1220;
+background:#0b1220;
 
-  border:
-  1px solid rgba(255,255,255,0.05);
+border:
+1px solid rgba(255,255,255,0.05);
 
-  border-radius:18px;
+border-radius:18px;
 
-  padding:18px;
+padding:18px;
 
-  white-space:pre-wrap;
+white-space:pre-wrap;
 
-  font-size:13px;
+font-size:13px;
 
-  line-height:1.45;
+line-height:1.45;
 
-  color:#dbeafe;
+color:#dbeafe;
 
-  min-height:170px;
+min-height:170px;
 }
 
 .live-preview{
-  margin-top:12px;
-  padding:14px;
-  border-radius:14px;
+margin-top:12px;
+padding:14px;
+border-radius:14px;
 
-  background:
-  rgba(20,184,166,0.08);
+background:
+rgba(20,184,166,0.08);
 
-  border:
-  1px solid rgba(20,184,166,0.2);
+border:
+1px solid rgba(20,184,166,0.2);
 
-  color:#99f6e4;
+color:#99f6e4;
 
-  font-size:13px;
+font-size:13px;
 
-  text-align:center;
+text-align:center;
 }
 
 .info{
-  margin-top:16px;
+margin-top:16px;
 
-  background:
-  rgba(37,99,235,0.12);
+background:
+rgba(37,99,235,0.12);
 
-  border:
-  1px solid rgba(37,99,235,0.3);
+border:
+1px solid rgba(37,99,235,0.3);
 
-  border-radius:16px;
+border-radius:16px;
 
-  padding:14px;
+padding:14px;
 
-  font-size:12px;
+font-size:12px;
 
-  line-height:1.6;
+line-height:1.6;
 
-  color:#bfdbfe;
+color:#bfdbfe;
 }
 
 .hidden{
-  display:none;
-}
-
-.report-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-  margin-top:12px;
-}
-
-.report-item{
-  background:#111827;
-  border-radius:12px;
-  padding:10px;
-  font-size:12px;
-  line-height:1.4;
+display:none;
 }
 
 @media(max-width:520px){
 
-  .container{
-    padding:18px;
-  }
-
-  .report-grid{
-    grid-template-columns:1fr;
-  }
+.container{
+padding:18px;
+}
 
 }
 
@@ -471,14 +450,7 @@ Format: HH:MM:SS
 🕒 Your Local Time: --:--:--
 </div>
 
-<select id="daySelect" class="select-box">
-
-<option value="0">Today</option>
-<option value="1">Tomorrow</option>
-<option value="2">+2 Days</option>
-<option value="3">+3 Days</option>
-
-</select>
+<select id="daySelect" class="select-box"></select>
 
 <div class="quick-title">
 ⚡ Quick Add
@@ -576,111 +548,57 @@ Paste the timestamp in Discord and everyone will see their local time and live c
 🛡️ Defense Call Maker
 </div>
 
-<div class="label">
-1. Name of the attacker? *
-</div>
-
+<div class="label">1. Name of the attacker? *</div>
 <div class="input-wrapper">
-<input
-class="input-box required-field"
-id="attacker"
-placeholder="Name of attacker here">
+<input class="input-box required-field" id="attacker" placeholder="Name of attacker here">
 <div class="clear-input" onclick="clearDefenseField('attacker')">✕</div>
 </div>
 
-<div class="label">
-2. Which village needs defense? *
-</div>
-
+<div class="label">2. Which village needs defense? *</div>
 <div class="input-wrapper">
-<input
-class="input-box required-field"
-id="village"
-placeholder="Name of your village here">
+<input class="input-box required-field" id="village" placeholder="Name of your village here">
 <div class="clear-input" onclick="clearDefenseField('village')">✕</div>
 </div>
 
-<div class="label">
-3. Exact time the attack arrives? *
-</div>
-
+<div class="label">3. Exact time the attack arrives? *</div>
 <div class="input-wrapper">
-<input
-class="input-box required-field"
-id="arrival"
-placeholder="Generated automatically">
+<input class="input-box required-field valid" id="arrival" placeholder="Generated automatically">
 <div class="clear-input" onclick="clearDefenseField('arrival')">✕</div>
 </div>
 
-<div class="label">
-4. How many waves incoming? *
-</div>
-
+<div class="label">4. How many waves incoming? *</div>
 <div class="input-wrapper">
-<input
-class="input-box required-field"
-id="waves"
-placeholder="Example: 8">
+<input class="input-box required-field" id="waves" placeholder="Example: 8">
 <div class="clear-input" onclick="clearDefenseField('waves')">✕</div>
 </div>
 
-<div class="label">
-5. Watch Tower lvl? *
-</div>
-
+<div class="label">5. Watch Tower lvl? *</div>
 <div class="input-wrapper">
-<input
-class="input-box required-field"
-id="tower"
-placeholder="Example: 10">
+<input class="input-box required-field" id="tower" placeholder="Example: 10">
 <div class="clear-input" onclick="clearDefenseField('tower')">✕</div>
 </div>
 
-<div class="label">
-6. Food situation? *
-</div>
-
+<div class="label">6. Food situation? *</div>
 <div class="input-wrapper">
-<input
-class="input-box required-field"
-id="food"
-placeholder="80k+">
+<input class="input-box required-field" id="food" placeholder="80k+">
 <div class="clear-input" onclick="clearDefenseField('food')">✕</div>
 </div>
 
-<div class="label">
-7. Total granary size? *
-</div>
-
+<div class="label">7. Total granary size? *</div>
 <div class="input-wrapper">
-<input
-class="input-box required-field"
-id="granary"
-placeholder="160k">
+<input class="input-box required-field" id="granary" placeholder="160k">
 <div class="clear-input" onclick="clearDefenseField('granary')">✕</div>
 </div>
 
-<div class="label">
-8. Current defensive troops? *
-</div>
-
+<div class="label">8. Current defensive troops? *</div>
 <div class="input-wrapper">
-<input
-class="input-box required-field"
-id="troops"
-placeholder="6k">
+<input class="input-box required-field" id="troops" placeholder="6k">
 <div class="clear-input" onclick="clearDefenseField('troops')">✕</div>
 </div>
 
-<div class="label">
-9. Extra troops needed? *
-</div>
-
+<div class="label">9. Extra troops needed? *</div>
 <div class="input-wrapper">
-<input
-class="input-box required-field"
-id="needed"
-placeholder="20k">
+<input class="input-box required-field" id="needed" placeholder="20k">
 <div class="clear-input" onclick="clearDefenseField('needed')">✕</div>
 </div>
 
@@ -694,12 +612,8 @@ onclick="generateDefense()">
 
 </button>
 
-<div
-class="output"
-id="deffOutput">
-
+<div class="output" id="deffOutput">
 Your defense report will appear here...
-
 </div>
 
 <button
@@ -736,16 +650,63 @@ document.querySelectorAll(".required-field");
 const generateDefenseBtn =
 document.getElementById("generateDefenseBtn");
 
+function updateDaySelector(){
+
+const selector =
+document.getElementById("daySelect");
+
+selector.innerHTML = "";
+
+const names = [
+"Sunday",
+"Monday",
+"Tuesday",
+"Wednesday",
+"Thursday",
+"Friday",
+"Saturday"
+];
+
+for(let i=0;i<4;i++){
+
+const d = new Date();
+
+d.setDate(d.getDate()+i);
+
+let label = "";
+
+if(i===0){
+label = "Today";
+}
+else if(i===1){
+label = "Tomorrow";
+}
+else{
+label = `+${i} Days`;
+}
+
+const option =
+document.createElement("option");
+
+option.value = i;
+
+option.textContent =
+`${label} (${names[d.getDay()]})`;
+
+selector.appendChild(option);
+
+}
+
+}
+
+updateDaySelector();
+
 function updateGenerateButton(){
 
 if(timeInput.value.trim()){
-
 generateBtn.classList.add("active");
-
 }else{
-
 generateBtn.classList.remove("active");
-
 }
 
 }
@@ -790,13 +751,9 @@ allFilled = false;
 });
 
 if(allFilled){
-
 generateDefenseBtn.classList.add("active");
-
 }else{
-
 generateDefenseBtn.classList.remove("active");
-
 }
 
 }
@@ -893,9 +850,7 @@ let current =
 timeInput.value;
 
 if(!current){
-
 current = "00:00:00";
-
 }
 
 const p =
@@ -937,6 +892,21 @@ function addSeconds(s){
 addTime(s);
 }
 
+function formatDiff(diff){
+
+const h =
+Math.floor(diff/3600);
+
+const m =
+Math.floor((diff%3600)/60);
+
+const s =
+Math.floor(diff%60);
+
+return `${h}h ${m}m ${s}s`;
+
+}
+
 function generateTimer(){
 
 const valid =
@@ -954,9 +924,6 @@ return;
 
 const parts =
 parseInput(timeInput.value);
-
-const now =
-new Date();
 
 const target =
 new Date();
@@ -1008,6 +975,14 @@ generateBtn.innerText =
 arrival.value =
 `<t:${landingUnix}:F>`;
 
+arrival.classList.add("valid");
+
+removeIndicator(arrival);
+
+addIndicator(arrival);
+
+checkDefenseFields();
+
 document
 .getElementById("gotoDefenseBtn")
 .style.opacity = "1";
@@ -1017,21 +992,6 @@ document
 .style.pointerEvents = "auto";
 
 startLiveCountdown();
-
-}
-
-function formatDiff(diff){
-
-const h =
-Math.floor(diff/3600);
-
-const m =
-Math.floor((diff%3600)/60);
-
-const s =
-Math.floor(diff%60);
-
-return `${h}h ${m}m ${s}s`;
 
 }
 
@@ -1140,10 +1100,16 @@ return;
 
 }
 
+const diff =
+landingUnix -
+Math.floor(Date.now()/1000);
+
 generatedDefenseText =
 `🛡️ DEFENSE CALL
 
-📅 Lands: ${arrival.value}
+⌛ Attack spotted: ${formatDiff(diff)} ago
+📅 Lands: <t:${landingUnix}:F>
+⏳ Countdown: <t:${landingUnix}:R>
 
 👤 Attacker: ${attacker.value}
 🌊 Waves: ${waves.value}
